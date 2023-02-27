@@ -14,8 +14,6 @@ export const CalculatorView = () => {
 
     const [amount, setAmount] = React.useState<number>(0);
     const [ccyExchangeResult, setCcyExchangeResult] = React.useState<number>(0);
-    const [currencyFrom, setCurrencyFrom] = React.useState<string>('AUD');
-    const [currencyTo, setCurrencyTo] = React.useState<string>('AUD');
     const [convertFromList, setConvertFromList] = React.useState<any>(currenciesConvertFrom);
     const [convertToList, setConvertToList] = React.useState<any>(currenciesConvertTo);
     const [rateFrom, setRateFrom] = React.useState<number>(0);
@@ -29,14 +27,12 @@ export const CalculatorView = () => {
     const handleConvertFrom = (event: any) => {
         getCurrencyRate(event).then((response) => {
             setRateFrom(response[0].amount)
-            setCurrencyFrom(response[0].currency)
         })
     }
 
     const handleConvertTo = (event: any) => {
         getCurrencyRate(event).then((response) => {
             setRateTo(response[0].amount)
-            setCurrencyTo(response[0].currency)
         })
     }
 
