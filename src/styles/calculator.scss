@@ -19,3 +19,9 @@
     align-items: center;
   }
 }
+
+.currency-from {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+}
