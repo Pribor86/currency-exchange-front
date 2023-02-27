@@ -1,18 +1,10 @@
 import React, {useEffect} from 'react';
 import '../../styles/calculator.scss';
 import Form from "react-bootstrap/Form";
-import ccyRatesList from '../../mockData/CcyRates/EUR.json';
 import {getCurrencyRate} from "../../http";
 
 import {useAppSelector} from "../../store/hooks";
 
-let ccyNameList: any = ['EUR'];
-
-ccyRatesList.forEach((item: any) => item.CcyAmt.forEach((item: any) => {
-    if (item.Ccy !== 'EUR') {
-        ccyNameList.push(item.Ccy)
-    }
-}))
 
 export const CalculatorView = () => {
 
@@ -21,8 +13,6 @@ export const CalculatorView = () => {
 
     const [amount, setAmount] = React.useState<number>(0);
     const [ccyExchangeResult, setCcyExchangeResult] = React.useState<number>(0);
-    const [convertFrom, setConvertFrom] = React.useState<string>('AUD');
-    const [convertTo, setConvertTo] = React.useState<string>('AUD');
     const [convertFromList, setConvertFromList] = React.useState<any>(currenciesConvertFrom);
     const [convertToList, setConvertToList] = React.useState<any>(currenciesConvertTo);
     const [rateFrom, setRateFrom] = React.useState<number>(0);
@@ -33,27 +23,20 @@ export const CalculatorView = () => {
         setConvertFromList(currenciesConvertFrom);
     }, [currenciesConvertTo, currenciesConvertFrom])
     const handleConvertFrom = (event: any) => {
-        setConvertFrom(event)
         getCurrencyRate(event).then((response) => {
             setRateFrom(response[0].amount)
         })
     }
 
     const handleConvertTo = (event: any) => {
-        setConvertTo(event)
         getCurrencyRate(event).then((response) => {
             setRateTo(response[0].amount)
         })
     }
 
     const handleExchange = () => {
-        if (amount && convertFrom === 'EUR') {
-            const result = amount * rateTo
-            setCcyExchangeResult(result)
-        } else {
             let result = amount * (rateTo / rateFrom)
             setCcyExchangeResult(result)
-        }
     }
 
     const handleInput = (event: any) => {
