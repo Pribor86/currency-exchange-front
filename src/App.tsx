@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {getCurrencies} from './http'
+import {Header} from "./components/Header";
+import {SideMenu} from "./components/SideMenu";
+import {CalculatorView} from "./components/calculatorView/CalculatorView";
+import {HistoryView} from "./components/historyView/HistoryView";
+
+//redux
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "./store/store";
+import {setCurrencies} from "./store/actions";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch<AppDispatch>();
+
+    const [view, setView] = React.useState('calculator');
+
+    useEffect(() => {
+            getCurrencies().then(
+                (response) => {
+                    let tempListCurrencies: any = [];
+                    response.forEach((item: any) => {
+                        tempListCurrencies.push(item.ccy)
+                    })
+                    dispatch(setCurrencies(tempListCurrencies))
+                }
+            )
+        }, [dispatch]
+    )
+
+    return (
+        <div className="App">
+            <div id='header'>
+                <Header/>
+            </div>
+            <div id='wrapper'>
+                <div id='menu'>
+                    <SideMenu
+                        setView={setView}
+                    />
+                </div>
+                <div id='content'>
+                    {view === 'calculator' && <CalculatorView/>}
+                    {view === 'history' && <HistoryView/>}
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;

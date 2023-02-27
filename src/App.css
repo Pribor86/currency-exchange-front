@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -7,21 +8,34 @@
   pointer-events: none;
 }
 
+#header {
+  flex: 0 0 100px;
+}
+
+#wrapper {
+  display: flex;
+  height: calc(100vh - 100px);
+}
+
+#menu {
+  flex: 0 0 300px;
+}
+
+#content {
+  overflow: auto;
+  overflow-x: hidden;
+  overflow: auto;
+  padding: 40px;
+  flex: 1;
+  /* min-width: 805px; */
+  height: calc(100vh - 100px);
+
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {

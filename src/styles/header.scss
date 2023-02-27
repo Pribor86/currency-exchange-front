@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #5400ff;
+  color: #fff;
+  padding: 10px;
+  height: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+  h1 {
+    font-size: 1.5em;
+    margin: 0;
+  }
+
+}
